@@ -104,7 +104,7 @@ public class AplikasiBioskop {
         int n = scanner.nextInt();
         scanner.nextLine(); // bersihkan newline
 
-        // Pastikan tidak melebihi kapasitas
+        // Memastikan tidak melebihi kapasitas
         if (jumlahFilm + n > daftarFilm.length) {
             System.out.println("Melebihi kapasitas maksimum. Kamu bisa menambahkan maksimal "
                     + (daftarFilm.length - jumlahFilm) + " film saja.\n");
