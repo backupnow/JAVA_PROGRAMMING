@@ -44,6 +44,14 @@ public class AplikasiBioskop {
                     cariFilm();
                     break;
                 case 4:
+                    // Edit film
+                    editFilm();
+                    break;
+                case 5:
+                    // Hapus film
+                    hapusFilm();
+                    break;
+                case 6:
                     // Keluar dari program
                     System.out.println("Terima kasih. Semoga kembali lagi.");
                     System.exit(0);
@@ -83,10 +91,13 @@ public class AplikasiBioskop {
      */
     public static void tampilkanMenu() {
         System.out.println("=== Menu Utama ===");
+        System.out.println("Silahkan Pilih Menu Yang Tersedia");
         System.out.println("1. Tampilkan Daftar Film");
         System.out.println("2. Input Data Film");
         System.out.println("3. Cari Film");
-        System.out.println("4. Keluar");
+        System.out.println("4. Edit Film");
+        System.out.println("5. Hapus Film");
+        System.out.println("6. Keluar");
         System.out.print("Pilih: ");
     }
 
@@ -125,7 +136,7 @@ public class AplikasiBioskop {
      */
     public static void tampilkanFilm() {
         if (jumlahFilm == 0) {
-            System.out.println("Belum ada film yang tersimpan.\n");
+            System.out.println("Pesan : Belum ada film yang tersimpan.\n");
             return;
         }
 
@@ -141,7 +152,7 @@ public class AplikasiBioskop {
      */
     public static void cariFilm() {
         if (jumlahFilm == 0) {
-            System.out.println("Belum ada film yang tersimpan.\n");
+            System.out.println("Pesan : Belum ada film yang tersimpan.\n");
             return;
         }
 
@@ -159,9 +170,60 @@ public class AplikasiBioskop {
         /*found buat penanda di temukan atau tidak
          * dan keyword buat kata kunci */
         if (!found) {
-            System.out.println("Film dengan judul \"" + keyword + "\" tidak ditemukan.");
+            System.out.println("Pesan : Film dengan judul \"" + keyword + "\" tidak ditemukan.");
         }
         System.out.println();
     }
+
+    /*
+    * Method untuk mengedit film dengan nomor*/
+    public static void editFilm(){
+        if (jumlahFilm == 0){
+            System.out.println("Pesan : Belum ada Film untuk di Edit. \n");
+            return;
+        }
+        //Memanggil Method yang mencetak daftar film
+        tampilkanFilm();
+        System.out.println("Masukan nomor Film yang mau di Edit : ");
+        int nomorFilm = scanner.nextInt(); scanner.nextLine();
+        if (nomorFilm < 1 || nomorFilm > jumlahFilm){
+            System.out.println("Nomor tidak valid. \n");
+            return;
+        }
+        System.out.println("Masukkan judul baru : ");
+        String judulBaru = scanner.nextLine().trim();
+        daftarFilm[nomorFilm-1] = judulBaru;
+        System.out.println("Pesan : Film nomor " + nomorFilm + " berhasil di ubah. \n");
+    }
+
+    /*
+    * Method untuk menghapus film dengan nomor*/
+    public static void hapusFilm(){
+        if (jumlahFilm == 0){
+            System.out.println("Pesan : Belum ada film untuk di Hapus");
+            return;
+        }
+        //Memanggil Method yang mencetak daftar film
+        tampilkanFilm();
+        System.out.println("Masukan nomor film yang ingin di Hapus : ");
+        int nomorFilm = scanner.nextInt(); scanner.nextLine();
+        // OR = salah satu kondisi terpenuhi untuk di anggap tidak valid
+        if (nomorFilm < 1 || nomorFilm > jumlahFilm){
+            System.out.println("Nomor tidak valid. \n");
+            return;
+        }
+        /*
+        * Menggeser elemen kekiri = menimpa film yang di hapus
+        * dengan film berikutnya*/
+        for (int i = nomorFilm - 1; i < jumlahFilm - 1; i++){
+            daftarFilm[i] = daftarFilm[i+1];
+        }
+        //mengurangi jumlah film karena di hapus
+        daftarFilm[--jumlahFilm] = null;// mengkosongkan slot
+        System.out.println("Pesan : Film nomor " + nomorFilm + " berhasil di hapus. \n");
+
+
+    }
+
 
 }
